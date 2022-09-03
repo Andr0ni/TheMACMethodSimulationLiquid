@@ -15,3 +15,6 @@ applied to the complete Navier-Stokes equations. The main dependent variables ar
 5. Adjustments are made to allow marker particles to pass through cell boundaries. Every time, when this results in fluid entering a previously empty cell or emptying a cell that previously contained fluid, the necessary velocity changes are made.
 
 6. The calculation is completed at the current moment of time and a transition is made to a new iteration in time. It should be noted that the marker particles introduced into this incompressible flow calculation are only used to indicate fluid configuration. They show which cells contain fluid and which cells lie along the free surface. Marker particles also serve as a visualization of the flow, with which you can observe the trajectories and the relative position of fluid elements, while they are not involved in the calculations.
+
+# Examples
+![image](https://github.com/Andr0ni/TheMACMethodSimulationLiquid/blob/main/Example.gif)
