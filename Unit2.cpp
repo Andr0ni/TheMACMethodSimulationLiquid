@@ -5,7 +5,7 @@
 
 #pragma hdrstop
 
-#include "Unit2.h"
+#include "Unit2.h" 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -101,7 +101,7 @@ double calc_v_i_j(int i, int j)
 
 double calc_v_u(int i, int j)
 {
-	return (U0[i][j] + U0[i][j - 1]) / 2. * (V0[i][j] + V0[i - 1][j]) / 2.;// для i-1/2,j-1/2
+	return (U0[i][j] + U0[i][j - 1]) / 2. * (V0[i][j] + V0[i - 1][j]) / 2.;// Г¤Г«Гї i-1/2,j-1/2
 }
 
 void start(double grid[cellY + 2][cellX + 2])
@@ -274,11 +274,11 @@ while((t <= T_max) && (!stop))
 			}
 		} while (Max > eps);
 
-		for (int i = 0; i < cellY - 1; i++)//????? т к U[i + 1][j]
+		for (int i = 0; i < cellY - 1; i++)//????? ГІ ГЄ U[i + 1][j]
 		{
 			for (int j = 1; j < cellX; j++)
 			{
-				if (grid[i][j] == 2 || grid[i + 1][j] == 2 || grid[i - 1][j] == 2 || grid[i][j + 1] == 2 || grid[i][j - 1] == 2 /*|| grid[i + 1][j + 1] == 2 || grid[i - 1][j - 1] || grid[i - 1][j + 1] == 2 || grid[i + 1][j - 1] == 2*/)// ?????? нужно ли углы считать
+				if (grid[i][j] == 2 || grid[i + 1][j] == 2 || grid[i - 1][j] == 2 || grid[i][j + 1] == 2 || grid[i][j - 1] == 2 /*|| grid[i + 1][j + 1] == 2 || grid[i - 1][j - 1] || grid[i - 1][j + 1] == 2 || grid[i + 1][j - 1] == 2*/)// ?????? Г­ГіГ¦Г­Г® Г«ГЁ ГіГЈГ«Г» Г±Г·ГЁГІГ ГІГј
 				{
 					U[i + 1][j] = U0[i + 1][j] + dt * ((pow(calc_u_i_j(i, j), 2) - pow(calc_u_i_j(i + 1, j), 2)) / dx + (calc_v_u(i + 1, j) - calc_v_u(i + 1, j + 1)) / dy + g[0] + (P[i][j] - P[i + 1][j]) / dx + Nu * ((U0[i + 2][j] + U0[i][j] - 2 * U0[i + 1][j]) / dx / dx + (U0[i + 1][j + 1] + U0[i + 1][j - 1] - 2 * U0[i + 1][j]) / dy / dy));
 				}
@@ -289,7 +289,7 @@ while((t <= T_max) && (!stop))
 		{
 			for (int j = 0; j < cellX - 1; j++)
 			{
-				if (grid[i][j] == 2 || grid[i + 1][j] == 2 || grid[i - 1][j] == 2 || grid[i][j + 1] == 2 || grid[i][j - 1] == 2 /*|| grid[i + 1][j + 1] == 2 || grid[i - 1][j - 1] || grid[i - 1][j + 1] == 2 || grid[i + 1][j - 1] == 2*/)// ?????? нужно ли углы считать
+				if (grid[i][j] == 2 || grid[i + 1][j] == 2 || grid[i - 1][j] == 2 || grid[i][j + 1] == 2 || grid[i][j - 1] == 2 /*|| grid[i + 1][j + 1] == 2 || grid[i - 1][j - 1] || grid[i - 1][j + 1] == 2 || grid[i + 1][j - 1] == 2*/)// ?????? Г­ГіГ¦Г­Г® Г«ГЁ ГіГЈГ«Г» Г±Г·ГЁГІГ ГІГј
 				{
 					V[i][j + 1] = V0[i][j + 1] + dt * ((pow(calc_v_i_j(i, j), 2) - pow(calc_v_i_j(i, j + 1), 2)) / dy + (calc_v_u(i, j + 1) - calc_v_u(i + 1, j + 1)) / dx + g[1] + (P[i][j] - P[i][j + 1]) / dy + Nu * ((V0[i][j + 2] + V0[i][j] - 2 * V0[i][j + 1]) / dy / dy + (V0[i + 1][j + 1] + V0[i - 1][j + 1] - 2 * V0[i][j + 1]) / dx / dx));
 				}
@@ -395,35 +395,35 @@ while((t <= T_max) && (!stop))
 
 		for (int k = 0; k <= num_marker; k++)
 		{
-//			if (M[k].xf > 0.5)//если маркер находится правее
+//			if (M[k].xf > 0.5)//ГҐГ±Г«ГЁ Г¬Г Г°ГЄГҐГ° Г­Г ГµГ®Г¤ГЁГІГ±Гї ГЇГ°Г ГўГҐГҐ
 //			{
 //				M[k].x = M[k].x + (V[M[k].i][M[k].j] + V[M[k].i][M[k].j+1] /* + V[M[k].i + 1][M[k].j] + V[M[k].i + 1][M[k].j + 1]*/) * dt / 2.;
 //			}
-//			else//левее
+//			else//Г«ГҐГўГҐГҐ
 //			{
 //				M[k].x = M[k].x + (V[M[k].i][M[k].j] + V[M[k].i][M[k].j-1] /* + V[M[k].i - 1][M[k].j] + V[M[k].i - 1][M[k].j + 1]*/) * dt / 2.;
 //			}
-//			if (M[k].yf > 0.5)//вверху
+//			if (M[k].yf > 0.5)//ГўГўГҐГ°ГµГі
 //			{
 //				M[k].y = M[k].y + (U[M[k].i][M[k].j] + U[M[k].i-1 ][M[k].j] /* + U[M[k].i][M[k].j + 1] + U[M[k].i + 1][M[k].j + 1]*/) * dt / 2.;
 //			}
-//			else//внизу
+//			else//ГўГ­ГЁГ§Гі
 //			{
 //				M[k].y = M[k].y + (U[M[k].i][M[k].j] + U[M[k].i+1][M[k].j ] /* + U[M[k].i][M[k].j + 1] + U[M[k].i + 1][M[k].j + 1]*/) * dt / 2.;
 //			}
-			if (M[k].yf >= 0.5)// если маркер находится  снизу
+			if (M[k].yf >= 0.5)// ГҐГ±Г«ГЁ Г¬Г Г°ГЄГҐГ° Г­Г ГµГ®Г¤ГЁГІГ±Гї  Г±Г­ГЁГ§Гі
 			{
 				M[k].x = M[k].x + (V[M[k].i][M[k].j] + V[M[k].i][M[k].j + 1] + V[M[k].i + 1][M[k].j] + V[M[k].i + 1][M[k].j + 1]) * dt / 4.;
 			}
-			else// сверху
+			else// Г±ГўГҐГ°ГµГі
 			{
 				M[k].x = M[k].x + (V[M[k].i][M[k].j] + V[M[k].i][M[k].j + 1] + V[M[k].i - 1][M[k].j] + V[M[k].i - 1][M[k].j + 1]) * dt / 4.;
 			}
-			if (M[k].xf >= 0.5)// правее
+			if (M[k].xf >= 0.5)// ГЇГ°Г ГўГҐГҐ
 			{
 				M[k].y = M[k].y + (U[M[k].i][M[k].j] + U[M[k].i + 1][M[k].j] + U[M[k].i][M[k].j + 1] + U[M[k].i + 1][M[k].j + 1]) * dt / 4.;
 			}
-			else// левее
+			else// Г«ГҐГўГҐГҐ
 			{
 				M[k].y = M[k].y + (U[M[k].i][M[k].j] + U[M[k].i + 1][M[k].j] + U[M[k].i][M[k].j - 1] + U[M[k].i + 1][M[k].j - 1]) * dt / 4.;
 			}
@@ -448,7 +448,7 @@ while((t <= T_max) && (!stop))
 				D[i][j] = 0.;
 				R[i][j] = 0.;
 				P[i][j] = 0.;
-				//U[i][j] = 0.;  //???????вроде как нужно занулять
+				//U[i][j] = 0.;  //???????ГўГ°Г®Г¤ГҐ ГЄГ ГЄ Г­ГіГ¦Г­Г® Г§Г Г­ГіГ«ГїГІГј
 				//V[i][j] = 0.;
 			}
 		}
@@ -534,7 +534,7 @@ Nu = StrToFloat(LabeledEdit5->Text);
 
 
 
-	for (int i = 0; i <= cellY; i++)//«адаем сетку
+	for (int i = 0; i <= cellY; i++)//В«Г Г¤Г ГҐГ¬ Г±ГҐГІГЄГі
 	{
 		for (int j = 0; j <= cellX; j++)
 		{
@@ -548,7 +548,7 @@ Nu = StrToFloat(LabeledEdit5->Text);
 			}
 		}
 	}
-	for (int i = a1; i <= a2; i++) // вода
+	for (int i = a1; i <= a2; i++) // ГўГ®Г¤Г 
 	{
 		for (int j = b1; j <= b2; j++)
 		{
@@ -597,7 +597,7 @@ Nu = StrToFloat(LabeledEdit5->Text);
 			Image1->Canvas->Rectangle(cell_x*j,cell_y*i,cell_x*(j+1),cell_y*(i+1));
 		}
 	}
-	start(grid);//начальные услови¤
+	start(grid);//Г­Г Г·Г Г«ГјГ­Г»ГҐ ГіГ±Г«Г®ГўГЁВ¤
 
 	int r=2;
 	for (int k = 0; k <= num_marker; k++){
